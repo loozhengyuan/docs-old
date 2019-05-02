@@ -12,4 +12,5 @@
 * [Installing PostgreSQL](installing-postgresql.md)
 * [Installing LXD Hypervisor](installing-lxd-hypervisor.md)
 * [Generating GPG Keys](generating-gpg-keys.md)
+* [Inserting Commits in Git](inserting-commits-in-git.md)
 

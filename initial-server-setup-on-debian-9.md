@@ -2,32 +2,33 @@
 
 ## Change root password
 
-```shell
+```text
 passwd
 ```
 
 ## Change timezone
 
-```shell
+```text
 dpkg-reconfigure tzdata
 ```
 
 ## Changing VPS sources.list to Singapore servers
 
-```shell
+```text
 sed -i -e 's=http.us=ftp.sg=g' /etc/apt/sources.list
 ```
 
 ## Update/upgrade
 
-```shell
+```text
 sudo apt update && sudo apt upgrade -y
 ```
 
 ## Installing basic packages
 
 Some of these packages are often missing. You may install all of these or just select those you need:
-```shell
+
+```text
 sudo apt install sudo
 sudo apt install curl
 sudo apt install ufw
@@ -38,7 +39,8 @@ sudo apt install python3-venv
 
 ## Setting up UFW
 
-```shell
+```text
 sudo ufw allow ssh
 sudo ufw enable
 ```
+

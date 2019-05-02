@@ -3,73 +3,81 @@
 ## Prerequisites
 
 This doc assumes the following:
-- Debian 9
+
+* Debian 9
 
 ## Installation
 
 Ensure that the system is updated
-```shell
+
+```text
 sudo apt update -y && sudo apt upgrade -y
 ```
 
 Install MariaDB and dependencies
-```shell
+
+```text
 sudo apt install mariadb-server
 ```
 
 Install PHP and dependencies
-```shell
+
+```text
 sudo apt install php-fpm php-mysql
 sudo apt install php-curl php-gd php-intl php-mbstring php-soap php-xml php-xmlrpc php-zip
 ```
 
 Install nginx and dependencies
-```shell
+
+```text
 sudo apt install nginx
 ```
 
 ## Setup MariaDB
 
 Run the initial setup utility
-```shell
+
+```text
 sudo mysql_secure_installation
 ```
 
 Quoted from DigitalOcean's [article](https://www.digitalocean.com/community/tutorials/how-to-install-linux-apache-mariadb-php-lamp-stack-debian9):
 
-This will take you through a series of prompts where you can make some changes to your MariaDB installation’s security options. The first prompt will ask you to enter the current database root password. This is an administrative account in MariaDB that has increased privileges. Think of it as being similar to the root account for the server itself (although the one you are configuring now is a MariaDB-specific account). Because you just installed MariaDB and haven’t made any configuration changes yet, this password will be blank, so just press `ENTER` at the prompt.
+This will take you through a series of prompts where you can make some changes to your MariaDB installation’s security options. The first prompt will ask you to enter the current database root password. This is an administrative account in MariaDB that has increased privileges. Think of it as being similar to the root account for the server itself \(although the one you are configuring now is a MariaDB-specific account\). Because you just installed MariaDB and haven’t made any configuration changes yet, this password will be blank, so just press `ENTER` at the prompt.
 
 The next prompt asks you whether you'd like to set up a database root password. Type `N` and then press `ENTER`. In Debian, the root account for MariaDB is tied closely to automated system maintenance, so we should not change the configured authentication methods for that account. Doing so would make it possible for a package update to break the database system by removing access to the administrative account. Later, we will cover how to optionally set up an additional administrative account for password access if socket authentication is not appropriate for your use case.
 
 From there, you can press `Y` and then `ENTER` to accept the defaults for all the subsequent questions. This will remove some anonymous users and the test database, disable remote root logins, and load these new rules so that MariaDB immediately respects the changes you have made.
 
-In new installs on Debian systems, the root MariaDB user is set to authenticate using the unix_socket plugin by default rather than with a password. This allows for some greater security and usability in many cases, but it can also complicate things when you need to allow an external program (e.g., phpMyAdmin) administrative rights.
+In new installs on Debian systems, the root MariaDB user is set to authenticate using the unix\_socket plugin by default rather than with a password. This allows for some greater security and usability in many cases, but it can also complicate things when you need to allow an external program \(e.g., phpMyAdmin\) administrative rights.
 
 Enter with MariaDB client
-```shell
+
+```text
 sudo mariadb
 ```
 
-```shell
+```text
 CREATE DATABASE wordpress DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
 ```
 
-```shell
+```text
 GRANT ALL ON wordpress.* TO 'wordpressuser'@'localhost' IDENTIFIED BY 'password';
 ```
 
-```shell
+```text
 FLUSH PRIVILEGES;
 ```
 
-```shell
+```text
 EXIT;
 ```
 
 ## Setup Nginx
 
 Enable firewall
-```shell
+
+```text
 sudo ufw allow http
 sudo ufw allow https
 sudo ufw allow ssh
@@ -77,12 +85,14 @@ sudo ufw enable
 ```
 
 Create config file for site
-```shell
+
+```text
 sudo nano /etc/nginx/sites-available/your_domain
 ```
 
 Configuration if mounted on root
-```shell
+
+```text
 server {
 
     root /var/www/www.example.com;
@@ -101,7 +111,7 @@ server {
 
 }
 server {
-    
+
     listen 80;
     listen [::]:80;
 
@@ -114,7 +124,7 @@ server {
 
     listen 443 ssl;
     listen [::]:443 ssl;
-    
+
     server_name example.com;
 
     return 301 https://www.example.com$request_uri;
@@ -123,7 +133,8 @@ server {
 ```
 
 Configuration if mounted on subfolder
-```shell
+
+```text
 server {
 
     root /var/www/www.example.com;
@@ -154,7 +165,7 @@ server {
 
 }
 server {
-    
+
     listen 80;
     listen [::]:80;
 
@@ -167,7 +178,7 @@ server {
 
     listen 443 ssl;
     listen [::]:443 ssl;
-    
+
     server_name example.com;
 
     return 301 https://www.example.com$request_uri;
@@ -176,12 +187,14 @@ server {
 ```
 
 Check configuration
-```shell
+
+```text
 sudo nginx -t
 ```
 
 Reload configuration
-```shell
+
+```text
 sudo systemctl daemon-reload
 sudo systemctl reload nginx
 ```
@@ -189,49 +202,57 @@ sudo systemctl reload nginx
 ## Download and install Wordpress
 
 Download wordpress
-```shell
+
+```text
 cd /tmp
 curl -O https://wordpress.org/latest.tar.gz
 ```
 
 Extract compressed files
-```shell
+
+```text
 tar xzvf latest.tar.gz
 ```
 
 Copy the sample config
-```shell
+
+```text
 cp /tmp/wordpress/wp-config-sample.php /tmp/wordpress/wp-config.php
 ```
 
 Create `upgrade` directory
-```shell
+
+```text
 mkdir /tmp/wordpress/wp-content/upgrade
 ```
 
 Copy to `/var/www/` directory
-```shell
+
+```text
 sudo cp -a /tmp/wordpress/. /var/www/wordpress
 ```
 
 Update ownership and permissions
-```shell
+
+```text
 sudo chown -R www-data:www-data /var/www/wordpress
 sudo find /var/www/wordpress/ -type d -exec chmod 750 {} \;
 sudo find /var/www/wordpress/ -type f -exec chmod 640 {} \;
 ```
 
 Get secure keys
-```shell
+
+```text
 curl -s https://api.wordpress.org/secret-key/1.1/salt/
 ```
 
 Edit config file
-```shell
+
+```text
 sudo nano /var/www/wordpress/wp-config.php
 ```
 
-```shell
+```text
 . . .
 
 define('DB_NAME', 'wordpress');
@@ -258,12 +279,13 @@ define('NONCE_SALT',       'Q6]U:K?j4L%Z]}h^q7 DO NOT COPY THESE VALUES 1% ^qUsw
 define('FS_METHOD', 'direct');
 ```
 
-## [Optional] Installing Caddy instead of Nginx
+## \[Optional\] Installing Caddy instead of Nginx
 
 Refer to other document on setting up Caddy Web Server
 
 Caddyfile:
-```shell
+
+```text
 example.com {
     root /var/www/wordpress
     gzip
@@ -278,13 +300,15 @@ example.com {
 ## Complete setup
 
 Navigate to the following URL and complete setup
-```shell
+
+```text
 https://server_domain_or_IP
 ```
 
 ## Relevant Guides
 
-- [https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-debian-9](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-debian-9)
-- [https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-debian-9](https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-debian-9)
-- [https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mysql-php-lemp-stack-on-debian-9](https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mysql-php-lemp-stack-on-debian-9)
-- [https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-lemp-on-debian-9](https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-lemp-on-debian-9)
+* [https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-debian-9](https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-debian-9)
+* [https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-debian-9](https://www.digitalocean.com/community/tutorials/how-to-secure-nginx-with-let-s-encrypt-on-debian-9)
+* [https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mysql-php-lemp-stack-on-debian-9](https://www.digitalocean.com/community/tutorials/how-to-install-linux-nginx-mysql-php-lemp-stack-on-debian-9)
+* [https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-lemp-on-debian-9](https://www.digitalocean.com/community/tutorials/how-to-install-wordpress-with-lemp-on-debian-9)
+

@@ -3,30 +3,36 @@
 ## Installation
 
 Installs `curl` if you haven't already have it installed
-```shell
+
+```text
 sudo apt install curl
 ```
 
 One-click install script by Caddy
-```shell
+
+```text
 curl https://getcaddy.com | bash -s personal hook.service
 ```
 
 ## Configuration
 
 Create and edit Caddyfile
-```shell
+
+```text
 cd ~
 ```
-```shell
+
+```text
 sudo touch Caddyfile
 ```
-```shell
+
+```text
 sudo nano Caddyfile
 ```
 
 Copy and paste these settings
-```shell
+
+```text
 # ~/Caddyfile
 
 sub.example.tld {
@@ -38,45 +44,52 @@ sub.example.tld {
 sub.example.tld/static {
     root /var/www/sub.example.tld/static
 }
-
 ```
 
 Test to make sure it is working
-```shell
+
+```text
 cd ~
 ```
-```shell
+
+```text
 sudo caddy
 ```
 
 ## Convert to run as a service
 
 Installs caddy as a service
-```shell
+
+```text
 caddy -service install -agree -email user@example.com -conf /path/to/Caddyfile
 ```
 
 Check that caddy is running
-```shell
+
+```text
 sudo caddy -service start
 ```
-```shell
+
+```text
 sudo caddy -service status
 ```
 
 ## Increasing file descriptor limit
 
 Increase file descriptor limit from 1024 to 8192 by editing the `/etc/security/limits.conf` file
-```shell
+
+```text
 sudo nano /etc/security/limits.conf
 ```
 
 Add these two lines in the file:
-```shell
+
+```text
 # /etc/security/limits.conf
 
 root               soft    nofile          8192
 root               hard    nofile          8192
 ```
 
-_Tip: If you do not have `root` access, you should change `root` to `*` instead._
+_Tip: If you do not have_ `root` _access, you should change_ `root` _to_ `*` _instead._
+
