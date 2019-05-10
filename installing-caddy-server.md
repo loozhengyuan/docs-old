@@ -40,10 +40,6 @@ sub.example.tld {
         transparent
     }
 }
-
-sub.example.tld/static {
-    root /var/www/sub.example.tld/static
-}
 ```
 
 _Optional: If you want to bind to a unix socket, you can do so with the following:_
@@ -56,7 +52,19 @@ sub.example.tld {
         transparent
     }
 }
+```
 
+_Optional: If you want to redirect non-www to www, you can do so like this:_
+
+```text
+example.tld {
+    redir https://www.example.tld{uri}
+}
+```
+
+_Optional: If you want serve locally-hosted static files, you can also do so like this:_
+
+```text
 sub.example.tld/static {
     root /var/www/sub.example.tld/static
 }
