@@ -29,7 +29,7 @@ Gunicorn is activated using the `gunicorn` command supplied with two main parame
 If you're running this with `django`, navigate to your project root and run the following commands to make sure gunicorn is working correctly
 
 ```text
-gunicorn myproject.wsgi -b 0:8001
+gunicorn project.wsgi -b 0:8001
 ```
 
 ## Install Gunicorn using `systemd`
@@ -37,13 +37,13 @@ gunicorn myproject.wsgi -b 0:8001
 Create a new systemd file by running the following command
 
 ```text
-sudo nano /etc/systemd/system/myproject.service
+sudo nano /etc/systemd/system/project.service
 ```
 
-Paste the following and edit myproject to whatever your project is called
+Paste the following and edit `project` to whatever your project is called
 
 ```text
-# /etc/systemd/system/myproject.service
+# /etc/systemd/system/project.service
 
 [Unit]
 Description=Gunicorn
@@ -52,13 +52,13 @@ After=network.target
 [Service]
 User=root
 Group=www-data
-WorkingDirectory=/path/to/myproject
-ExecStart=/path/to/myproject/venv/bin/gunicorn \
+WorkingDirectory=/path/to/project
+ExecStart=/path/to/project/venv/bin/gunicorn \
           --access-logfile - \
           --workers 3 \
           --bind 0.0.0.0:8001 \
           --reload \
-          myproject.wsgi
+          project.wsgi
 
 [Install]
 WantedBy=multi-user.target
@@ -74,13 +74,13 @@ After=network.target
 [Service]
 User=root
 Group=www-data
-WorkingDirectory=/path/to/myproject
-ExecStart=/path/to/myproject/venv/bin/gunicorn \
+WorkingDirectory=/path/to/project
+ExecStart=/path/to/project/venv/bin/gunicorn \
           --access-logfile - \
           --workers 3 \
-          --bind unix:/home/sammy/myproject/myproject.sock \
+          --bind unix:/path/to/project/project/project.sock \
           --reload \
-          myproject.wsgi
+          project.wsgi
 
 [Install]
 WantedBy=multi-user.target
@@ -89,7 +89,7 @@ WantedBy=multi-user.target
 Start the system process
 
 ```text
-sudo systemctl start myproject
-sudo systemctl enable myproject
+sudo systemctl start project
+sudo systemctl enable project
 ```
 

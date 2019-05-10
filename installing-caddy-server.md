@@ -46,6 +46,22 @@ sub.example.tld/static {
 }
 ```
 
+_Optional: If you want to bind to a unix socket, you can do so with the following:_
+
+```text
+# ~/Caddyfile
+
+sub.example.tld {
+    proxy / unix:/path/to/unix.sock {
+        transparent
+    }
+}
+
+sub.example.tld/static {
+    root /var/www/sub.example.tld/static
+}
+```
+
 Test to make sure it is working
 
 ```text
