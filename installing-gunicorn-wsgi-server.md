@@ -53,6 +53,7 @@ After=network.target
 User=root
 Group=www-data
 WorkingDirectory=/path/to/project
+EnvironmentFile=/path/to/project/secret.env
 ExecStart=/path/to/project/venv/bin/gunicorn \
           --access-logfile - \
           --workers 3 \
@@ -75,6 +76,7 @@ After=network.target
 User=root
 Group=www-data
 WorkingDirectory=/path/to/project
+EnvironmentFile=/path/to/project/secret.env
 ExecStart=/path/to/project/venv/bin/gunicorn \
           --access-logfile - \
           --workers 3 \
