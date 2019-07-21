@@ -80,12 +80,54 @@ cd ~
 sudo caddy
 ```
 
-## Convert to run as a service
+## Optional: Using Cloudflare DNS
+
+If you're using Cloudflare as a DNS provider with proxy turned on, Caddy will not be able to request/renew Let's Encrypt TLS certificates out of the box. 
+
+In order to cater for this, be sure to install Caddy with the `tls.dns.cloudflare` plugin
+
+```text
+curl https://getcaddy.com | bash -s personal hook.service,tls.dns.cloudflare
+```
+
+Next, you need to edit `Caddyfile` to include the `tls` directive
+
+```text
+# ~/Caddyfile
+
+sub.example.tld {
+    proxy / localhost:8000 {
+        transparent
+    }
+    tls {
+        dns cloudflare
+    }
+}
+```
+
+Next, head to Cloudflare to request a Global API Key and then export the following as environment variables
+
+```text
+export CLOUDFLARE_EMAIL=john@doe.com
+export CLOUDFLARE_API_KEY=abc123
+```
+
+_Tip: If you're using it as a service, you may save the environment variables in a `.env` file instead:_ 
+
+```text
+# ~/.env
+CLOUDFLARE_EMAIL=john@doe.com
+CLOUDFLARE_API_KEY=abc123
+```
+
+_Then specify the file when you run caddy:`caddy -envfile /path/to/file.env`._
+
+## Optional: Convert to run as a service
 
 Installs caddy as a service
 
 ```text
-caddy -service install -agree -email user@example.com -conf /path/to/Caddyfile
+caddy -service install -agree -email user@example.com -conf /path/to/Caddyfile -envfile /path/to/file.env
 ```
 
 Check that caddy is running
@@ -98,7 +140,7 @@ sudo caddy -service start
 sudo caddy -service status
 ```
 
-## Increasing file descriptor limit
+## Optional: Increasing file descriptor limit
 
 Increase file descriptor limit from 1024 to 8192 by editing the `/etc/security/limits.conf` file
 
