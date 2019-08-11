@@ -122,12 +122,22 @@ CLOUDFLARE_API_KEY=abc123
 
 _Then specify the file when you run caddy:`caddy -envfile /path/to/file.env`._
 
+## Optional: Test run before anything
+
+In order to avoid consuming Lets Encrypt rate limit quotas, test caddy via the following command \(even before installing as a service, preferably\):
+
+```bash
+caddy -ca https://acme-staging-v02.api.letsencrypt.org/directory
+```
+
+Note: You may and should add extra options such at `-agree`, `-email`, `-conf`, and `-envfile` depending on your needs in order to test that caddy can run with the right parameters.
+
 ## Optional: Convert to run as a service
 
 Installs caddy as a service
 
 ```text
-caddy -service install -agree -email user@example.com -conf /path/to/Caddyfile -envfile /path/to/file.env
+sudo caddy -service install -agree -email user@example.com -conf /path/to/Caddyfile -envfile /path/to/file.env
 ```
 
 Check that caddy is running
