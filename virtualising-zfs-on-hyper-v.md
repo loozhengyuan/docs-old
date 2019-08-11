@@ -1,29 +1,35 @@
-# Virtualising ZFS on Hyper-V
+# Discrete Device Assignment on Hyper-V 2016/2019
 
-## Virtualising ZFS on Hyper-V
+## Prerequisites
 
-### Prerequisites
+1. Microsoft Hyper-V Server 2016/2019
+2. Compatible PCIe device
 
-1. Microsoft Hyper-V Server 2016
-2. Compatible Host Bus Adapter \(Like LSI, etc\)
+## Step 1: Preparing the VM
 
-### Step 1: Preparing the VM
-
-Prerequisites
+First, assign the `$VMName` variable to be used throughout this guide.
 
 ```text
-Set-VM -Name 'VM NAME' -AutomaticStopAction TurnOff
+$VMName = "Name of VM Here"
 ```
 
-## Optional Parameters
+As part of using DDA, there are some settings that needs to be enabled/tweaked. If any of the following settings are not ideal, it is important not to proceed with this guide.
+
+**Required Configurations**
 
 ```text
-Set-VM -GuestControlledCacheTypes $true -VMName 'VM NAME'
-Set-VM -LowMemoryMappedIoSpace 3Gb -VMName 'VM NAME'
-Set-VM -HighMemoryMappedIoSpace 33280Mb -VMName 'VM NAME'
+Set-VM -Name $VMName -AutomaticStopAction TurnOff
 ```
 
-### Step 2: Preparing the Host
+**Optional Configurations**
+
+```text
+Set-VM -GuestControlledCacheTypes $true -VMName $VMName
+Set-VM -LowMemoryMappedIoSpace 3Gb -VMName $VMName
+Set-VM -HighMemoryMappedIoSpace 33280Mb -VMName $VMName
+```
+
+## Step 2: Preparing the Host
 
 List all devices
 
@@ -67,32 +73,40 @@ Dismount-VMHostAssignableDevice -LocationPath $locationPath
 Dismount-VMHostAssignableDevice -LocationPath $locationPath[0]
 ```
 
-### Step 3: Assigning it to VM
+_Tip: If the `Dismount-VMHostAssignableDevice` cmdlet throws an error, you may use the `-Force` flag to bypass the error and dismount accordingly._
+
+## Step 3: Assigning it to VM
 
 Add device to VM
 
 ```text
-Add-VmAssignableDevice -LocationPath $locationPath -VmName 'VM NAME'
+Add-VmAssignableDevice -LocationPath $locationPath -VmName $VMName
 ```
 
 Verify that the device has been passed through
 
 ```text
-Get-VmAssignableDevice -VmName 'VM NAME'
+Get-VmAssignableDevice -VmName $VMName
 ```
 
-### Optional: Removing and remounting back to host
+## Optional: Removing and remounting back to host
+
+First, assign the `$VMName` variable
+
+```text
+$VMName = "Name of VM Here"
+```
 
 Identify the device to be removed
 
 ```text
-Get-VmAssignableDevice -VmName 'VM NAME'
+Get-VmAssignableDevice -VmName $VMName
 ```
 
 Remove device from VM
 
 ```text
-Remove-VmAssignableDevice -LocationPath $locationPath -VmName 'VM NAME'
+Remove-VmAssignableDevice -LocationPath $locationPath -VmName $VMName
 ```
 
 Remount it back to host
