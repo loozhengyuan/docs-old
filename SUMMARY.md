@@ -1,17 +1,31 @@
 # Table of contents
 
-* [Setup Windows Admin Center on Hyper-V Server 2019](README.md)
-* [Initial Server Setup on Debian 9](initial-server-setup-on-debian-9.md)
-* [Backup ZFS Remotely](backup-zfs-remotely.md)
-* [Discrete Device Assignment on Hyper-V 2016/2019](virtualising-zfs-on-hyper-v.md)
-* [Installing Caddy Server](installing-caddy-server.md)
-* [Installing Gunicorn WSGI Server](installing-gunicorn-wsgi-server.md)
-* [Installing Wireguard VPN](installing-wireguard-vpn.md)
-* [Installing Ghost](installing-ghost.md)
-* [Installing Wordpress](installing-wordpress.md)
-* [Installing PostgreSQL](installing-postgresql.md)
-* [Installing LXD Hypervisor](installing-lxd-hypervisor.md)
-* [Generating GPG Keys](generating-gpg-keys.md)
-* [Generating SSH Keys](generating-ssh-keys.md)
-* [Inserting Commits in Git](inserting-commits-in-git.md)
+* [Welcome](README.md)
+
+## Security
+
+* [Generating SSH Keys](security/generating-ssh-keys.md)
+* [Generating GPG Keys](security/generating-gpg-keys.md)
+
+## Development
+
+* [Initial Server Setup on Debian 9](development/initial-server-setup-on-debian-9.md)
+* [Inserting Commits in Git](development/inserting-commits-in-git.md)
+
+## Infrastructure
+
+* [Installing LXD Hypervisor](infrastructure/installing-lxd-hypervisor.md)
+* [Installing WAC on Hyper-V 2019](infrastructure/installing-wac-on-hyper-v-2019.md)
+* [Setup DDA on Hyper-V 2019](infrastructure/setup-dda-on-hyper-v-2019.md)
+
+## Miscellaneous
+
+* [Installing PostgreSQL](miscellaneous/installing-postgresql.md)
+* [Installing Caddy Server](miscellaneous/installing-caddy-server.md)
+* [Installing Wireguard VPN](miscellaneous/installing-wireguard-vpn.md)
+* [Installing Gunicorn WSGI Server](miscellaneous/installing-gunicorn-wsgi-server.md)
+* [Installing Wordpress](miscellaneous/installing-wordpress.md)
+* [Installing Ghost](miscellaneous/installing-ghost.md)
+* [Backup ZFS Remotely](miscellaneous/backup-zfs-remotely.md)
+* [Installing Oh My Zsh on MacOS](miscellaneous/installing-oh-my-zsh-on-macos.md)
 

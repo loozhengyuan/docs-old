@@ -1,8 +1,8 @@
-# Discrete Device Assignment on Hyper-V 2016/2019
+# Setup DDA on Hyper-V 2019
 
 ## Prerequisites
 
-1. Microsoft Hyper-V Server 2016/2019
+1. Microsoft Hyper-V Server 2019
 2. Compatible PCIe device
 
 ## Step 1: Preparing the VM
