@@ -4,20 +4,20 @@
 
 Ensure that the system is updated
 
-```text
+```bash
 sudo apt update
 sudo apt upgrade
 ```
 
 Install required packages
 
-```text
+```bash
 sudo apt install postgresql postgresql-contrib
 ```
 
 Check if its installed correctly
 
-```text
+```bash
 ps -ef | grep postgre
 ```
 
@@ -25,38 +25,50 @@ ps -ef | grep postgre
 
 The first step is to allow remote connections to access the database. Depending on your use, this step may not be needed. If you are unable to find the relevant directory, run `sudo find / -name postgresql.conf` to locate the files on your system.
 
-```text
+```bash
 sudo nano /etc/postgresql/9.6/main/postgresql.conf
 ```
 
 Next, uncomment and change the listening address from `localhost` to `*`:
 
+{% code-tabs %}
+{% code-tabs-item title="/etc/postgresql/9.6/main/postgresql.conf" %}
 ```text
 listen_addresses = '*'
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 The second step would be to adjust the authentication methods and allowed hosts. Navigate to the file:
 
-```text
+```bash
 sudo nano /etc/postgresql/9.6/main/pg_hba.conf
 ```
 
 Next, replace these entries for `ipv4` and `ipv6` section:
 
+{% code-tabs %}
+{% code-tabs-item title="/etc/postgresql/9.6/main/pg\_hba.conf" %}
 ```text
 host    all             all              0.0.0.0/0                       md5
 host    all             all              ::/0                            md5
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 Change the default auth method for local connections to `md5` to make the authentication less confusing. \(Leave the entry for `postgres` alone\)
 
+{% code-tabs %}
+{% code-tabs-item title="/etc/postgresql/9.6/main/pg\_hba.conf" %}
 ```text
 local    all             all                                          md5
 ```
+{% endcode-tabs-item %}
+{% endcode-tabs %}
 
 Lastly, restart the server to allow changes to take effect.
 
-```text
+```bash
 sudo service postgresql restart
 ```
 
@@ -64,26 +76,26 @@ sudo service postgresql restart
 
 Connect to default admin account to create roles
 
-```text
+```bash
 sudo -u postgres createuser --interactive --pwprompt
 sudo -u postgres createdb -O NewUser NewUser
 ```
 
 To connect via that specific user \(OPTIONAL\)
 
-```text
+```bash
 sudo -u newUser psql
 ```
 
 Enter into postgresql shell \(press \q to exit\)
 
-```text
+```bash
 psql -d newpgdatabase -U newpguser #for specific user/db
 ```
 
 \(Optional\) Adding new user to UNIX database \(ONLY FOR IDENT/PEER AUTH\)
 
-```text
+```bash
 sudo adduser newUser
 ```
 
