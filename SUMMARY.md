@@ -17,6 +17,7 @@
 * [Installing LXD Hypervisor](infrastructure/installing-lxd-hypervisor.md)
 * [Installing WAC on Hyper-V 2019](infrastructure/installing-wac-on-hyper-v-2019.md)
 * [Setup DDA on Hyper-V 2019](infrastructure/setup-dda-on-hyper-v-2019.md)
+* [Setting up UnattendedUpgrades on Debian 10](infrastructure/setting-up-unattendedupgrades-on-debian-10.md)
 
 ## Miscellaneous
 
