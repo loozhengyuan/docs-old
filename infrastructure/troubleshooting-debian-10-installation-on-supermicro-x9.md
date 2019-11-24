@@ -76,6 +76,12 @@ Unbeknownst to me, the default system will automatically suspend. I did not enco
 sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
 ```
 
+Then restart or run the following command for changes to take effect:
+
+```bash
+sudo systemctl restart systemd-logind.service
+```
+
 References: [https://wiki.debian.org/Suspend\#Disable\_suspend\_and\_hibernation](https://wiki.debian.org/Suspend#Disable_suspend_and_hibernation)
 
 
