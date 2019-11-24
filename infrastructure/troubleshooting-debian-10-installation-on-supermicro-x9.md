@@ -68,7 +68,15 @@ sudo apt install nvidia-driver  # Because I was using one
 
 [StackExchange Thread](https://unix.stackexchange.com/questions/541489/grub-fails-to-install-during-debian-10-installer-re-uefi-supermicro-motherboa)
 
+## Resolving system suspending
 
+Unbeknownst to me, the default system will automatically suspend. I did not encounter this behaviour in VMs, so it came as a surprise to me \(although the Ubuntu desktop installations I've done follow this same behaviour\). To avoid this, run the following command:
+
+```bash
+sudo systemctl mask sleep.target suspend.target hibernate.target hybrid-sleep.target
+```
+
+References: [https://wiki.debian.org/Suspend\#Disable\_suspend\_and\_hibernation](https://wiki.debian.org/Suspend#Disable_suspend_and_hibernation)
 
 
 
