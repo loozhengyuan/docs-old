@@ -31,14 +31,12 @@ Check that auto update was correctly setup:
 cat /etc/apt/apt.conf.d/20auto-upgrades
 ```
 
-{% code-tabs %}
-{% code-tabs-item title="/etc/apt/apt.conf.d/20auto-upgrades" %}
+{% code title="/etc/apt/apt.conf.d/20auto-upgrades" %}
 ```text
 APT::Periodic::Update-Package-Lists "1";
 APT::Periodic::Unattended-Upgrade "1";
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 
 

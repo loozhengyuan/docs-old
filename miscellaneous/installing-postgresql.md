@@ -31,13 +31,11 @@ sudo nano /etc/postgresql/9.6/main/postgresql.conf
 
 Next, uncomment and change the listening address from `localhost` to `*`:
 
-{% code-tabs %}
-{% code-tabs-item title="/etc/postgresql/9.6/main/postgresql.conf" %}
+{% code title="/etc/postgresql/9.6/main/postgresql.conf" %}
 ```text
 listen_addresses = '*'
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 The second step would be to adjust the authentication methods and allowed hosts. Navigate to the file:
 
@@ -47,24 +45,20 @@ sudo nano /etc/postgresql/9.6/main/pg_hba.conf
 
 Next, replace these entries for `ipv4` and `ipv6` section:
 
-{% code-tabs %}
-{% code-tabs-item title="/etc/postgresql/9.6/main/pg\_hba.conf" %}
+{% code title="/etc/postgresql/9.6/main/pg\_hba.conf" %}
 ```text
 host    all             all              0.0.0.0/0                       md5
 host    all             all              ::/0                            md5
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Change the default auth method for local connections to `md5` to make the authentication less confusing. \(Leave the entry for `postgres` alone\)
 
-{% code-tabs %}
-{% code-tabs-item title="/etc/postgresql/9.6/main/pg\_hba.conf" %}
+{% code title="/etc/postgresql/9.6/main/pg\_hba.conf" %}
 ```text
 local    all             all                                          md5
 ```
-{% endcode-tabs-item %}
-{% endcode-tabs %}
+{% endcode %}
 
 Lastly, restart the server to allow changes to take effect.
 
