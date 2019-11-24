@@ -22,7 +22,7 @@
 
 ## Miscellaneous
 
-* [Installing ZFS on Linux \(WIP\)](miscellaneous/installing-zfs-on-linux-wip.md)
+* [Installing ZFS on Linux \(WIP\)](miscellaneous/installing-zfs-on-linux.md)
 * [Installing PostgreSQL](miscellaneous/installing-postgresql.md)
 * [Installing Caddy Server](miscellaneous/installing-caddy-server.md)
 * [Installing Wireguard VPN](miscellaneous/installing-wireguard-vpn.md)
