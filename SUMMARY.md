@@ -14,6 +14,7 @@
 
 ## Infrastructure
 
+* [Setting up Google SSO with Azure AD as third-party IdP](infrastructure/setting-up-google-sso-with-azure-ad-as-third-party-idp.md)
 * [Installing LXD Hypervisor](infrastructure/installing-lxd-hypervisor.md)
 * [Installing WAC on Hyper-V 2019](infrastructure/installing-wac-on-hyper-v-2019.md)
 * [Setup DDA on Hyper-V 2019](infrastructure/setup-dda-on-hyper-v-2019.md)
