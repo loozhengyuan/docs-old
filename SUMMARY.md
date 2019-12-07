@@ -33,3 +33,7 @@
 * [Backup ZFS Remotely](miscellaneous/backup-zfs-remotely.md)
 * [Installing Oh My Zsh on MacOS](miscellaneous/installing-oh-my-zsh-on-macos.md)
 
+## Recipes
+
+* [Dockerfile](recipes/dockerfile.md)
+
